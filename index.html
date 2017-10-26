@@ -1,0 +1,73 @@
+<!DOCTYPE HTML>
+
+<html>
+    <head>
+        <style>
+        body {
+            background-color: goldenrod; 
+        }
+        header {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            padding: 1em 0em;
+        }
+        #content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+        }
+        .board {
+            height: 600px;
+            width: 600px;
+            background-color: white;
+            display: flex;
+            flex-direction: column;
+        }
+        .board .row {
+            width: 100%;
+            min-height: 50px;
+            background-color: blanchedalmond; 
+        }
+
+        </style>
+    </head>
+    <body>
+        <header>
+            <button>START</button>
+        </header>
+
+        <div id="content"></div>
+
+        <script>
+            var contentDiv = document.getElementById('content');
+
+            var board = document.createElement('div');
+            board.className = 'board';
+
+            for(var y = 0; y < 8; y++) {
+                addRowToBoard();
+            }
+
+
+            /* Last thing to do is add board to contentDiv (performance) */
+            contentDiv.appendChild(board);
+
+
+            function addRowToBoard() {
+                var row = document.createElement('div');
+                row.className = 'row';
+
+                if (y%2) {
+                    row.style.backgroundColor = 'black';
+                } else {
+                    row.style.backgroundColor = 'white';
+                }
+
+                board.appendChild(row);
+            }
+
+        </script>
+    </body>
+</html>
