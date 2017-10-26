@@ -21,9 +21,9 @@
         .board {
             height: 600px;
             width: 600px;
-            background-color: white;
             display: flex;
             flex-direction: column;
+            margin: 20px 0px;
         }
         .board .row {
             flex-grow: 1;
@@ -32,8 +32,6 @@
         }
 
         .board .row .square {
-            background-color: pink;
-            min-width: 50px;
             flex-basis: auto;
             flex-grow: 1;
         }
@@ -42,41 +40,41 @@
     </head>
     <body>
         <header>
-            <button>START</button>
+            <button onclick="startProgram()">START</button>
         </header>
 
         <div id="content"></div>
 
         <script>
-            var nrOfSquares = 8;
+            var nrOfSquares = 40;
             var contentDiv = document.getElementById('content');
 
-            var board = document.createElement('div');
-            board.className = 'board';
+            function startProgram() {
+                setInterval(function() {
+                    createBoard();
+                    nrOfSquares++;
+                }, 500);
+            }
 
-            for (var y = 0; y < nrOfSquares; y++) {
-                var row = addRowToBoard();
+            function createBoard() {
+                var board = document.createElement('div');
+                board.className = 'board';
 
-                for (var x = 0; x < nrOfSquares; x++) {
-                    var square = document.createElement('div');
-                    square.className = 'square';
+                for (var y = 0; y < nrOfSquares; y++) {
+                    var row = addRowToBoard(board);
 
-                    if ((y+x) % 2) {
-                        square.style.backgroundColor = 'black';
-                    } else {
-                        square.style.backgroundColor = 'white';
+                    for (var x = 0; x < nrOfSquares; x++) {
+                        addSquareToRow(x, y, row);
                     }
-
-                    row.appendChild(square);
                 }
+
+                /* Last thing to do is add board to contentDiv (performance) */
+                contentDiv.innerHTML = "";
+                contentDiv.appendChild(board);
             }
 
 
-            /* Last thing to do is add board to contentDiv (performance) */
-            contentDiv.appendChild(board);
-
-
-            function addRowToBoard() {
+            function addRowToBoard(board) {
                 var row = document.createElement('div');
                 row.className = 'row';
 
@@ -84,7 +82,18 @@
                 return row;
             }
 
-            
+            function addSquareToRow(x, y, row) {
+                var square = document.createElement('div');
+                square.className = 'square';
+
+                if ((y+x) % 2) {
+                    square.style.backgroundColor = 'black';
+                } else {
+                    square.style.backgroundColor = 'white';
+                }
+
+                row.appendChild(square);
+            }
 
         </script>
     </body>
